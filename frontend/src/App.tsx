@@ -1,10 +1,10 @@
 import React from "react";
-import Tiptap from "./components/editor";
+import Board from "./pages/Board";
 
 function App() {
 	return (
 		<div className="App">
-			<Tiptap></Tiptap>
+			<Board></Board>
 		</div>
 	);
 }
