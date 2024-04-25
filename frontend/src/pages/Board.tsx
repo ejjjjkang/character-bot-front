@@ -16,15 +16,53 @@ import AppBar from "@mui/material";
 const Board = () => {
 	const [db, setDb] = useState([]);
 	const [load, setLoad] = useState({
-		personality: "",
+		personalities: "",
 		hobbies: "",
+		lifestyles: "",
+		language_styles: "",
+		emojis: "",
+		writing_topics: "",
 	});
+	const [process, setProcess] = useState(false);
+	const [file, setFile] = useState();
 
-	function handleLoad(e: React.MouseEvent<HTMLElement>) {
+	const loadFile = (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault();
-		axios.get("http://localhost:8000/api/db").then((res) => {
-			setDb(res.data);
-		});
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			const text = (e.target as FileReader).result;
+			const json = csvToJson(text as string);
+			handleCsv({ key: json });
+		};
+	};
+
+	function csvToJson(csv: string) {
+		const lines = csv.split("\n");
+		const result = [];
+		const headers = lines[0].split(",");
+
+		for (let i = 1; i < lines.length; i++) {
+			const obj: { [key: string]: string } = {}; // Add index signature to object type declaration
+			const currentline = lines[i].split(",");
+			for (let j = 0; j < headers.length; j++) {
+				obj[headers[j].trim()] = currentline[j].trim();
+			}
+			result.push(obj);
+		}
+		return JSON.stringify(result);
+	}
+
+	const handleOnChange = (e: any) => {
+		setFile(e.target.files[0]);
+	};
+
+	function handleCsv(csvToJson: { key: string }) {
+		axios
+			.post("http://localhost:8000/update_posting", csvToJson)
+			.then((res) => {})
+			.catch((errors) => {
+				console.log(errors);
+			});
 	}
 
 	function handleSave(e: React.MouseEvent<HTMLElement>) {
@@ -59,7 +97,18 @@ const Board = () => {
 							</Typography>
 						</Stack>
 						<Stack direction={"row"} alignItems={"center"}>
-							<Button onClick={(e) => handleLoad(e)}>Import</Button>
+							<form>
+								<input
+									type={"file"}
+									id={"csvFileInput"}
+									accept={".csv"}
+									onChange={handleOnChange}
+								/>
+
+								{/* <Button onClick={(e) => loadFile(e)}>Import</Button> */}
+							</form>
+
+							{process ? <Button>Load</Button> : null}
 							<InfoIcon></InfoIcon>
 						</Stack>
 					</Stack>
@@ -80,8 +129,8 @@ const Board = () => {
 								<Stack alignSelf={"flex-start"}>Personality</Stack>
 								<Textarea
 									placeholder="please load your data"
-									value={load.personality}
-									disabled={load.personality ? false : true}
+									value={load.personalities}
+									disabled={load.personalities ? false : true}
 								></Textarea>
 							</Stack>
 							<Stack mt={2}>
@@ -101,11 +150,19 @@ const Board = () => {
 						<Stack>
 							<Stack mt={2}>
 								<Stack alignSelf={"flex-start"}>Writing topics</Stack>
-								<Textarea placeholder="topic"></Textarea>
+								<Textarea
+									placeholder="please load your data"
+									value={load.writing_topics}
+									disabled={load.writing_topics ? false : true}
+								></Textarea>
 							</Stack>
 							<Stack mt={2}>
 								<Stack alignSelf={"flex-start"}>Speech tones</Stack>
-								<Textarea placeholder="topic"></Textarea>
+								<Textarea
+									placeholder="please load your data"
+									value={load.language_styles}
+									disabled={load.language_styles ? false : true}
+								></Textarea>
 							</Stack>
 						</Stack>
 					</Stack>
@@ -117,6 +174,9 @@ const Board = () => {
 						</Stack>
 						<Stack mt={2}>
 							<Button>Generate</Button>
+						</Stack>
+						<Stack mt={2}>
+							<Button>Refresh</Button>
 						</Stack>
 					</Stack>
 					<Stack m={2} flexGrow={5}>
