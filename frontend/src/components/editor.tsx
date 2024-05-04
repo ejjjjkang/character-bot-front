@@ -15,13 +15,18 @@ const extensions = [
 	}),
 ];
 
-const content = `
-<div>post</div>
+export const Tiptap = (content?: any) => {
+	const boardContent = `
+<div>${content.content}</div>
 `;
 
-export const Tiptap = () => {
+	console.log(content.content);
+
 	return (
-		<EditorProvider extensions={extensions} content={content}>
+		<EditorProvider
+			extensions={extensions}
+			content={content.content ? boardContent : ``}
+		>
 			{" "}
 		</EditorProvider>
 	);
