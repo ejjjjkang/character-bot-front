@@ -158,9 +158,7 @@ const Board = () => {
 			.then((res) => {
 				let data = res.data.content.content;
 
-				// data = data.replace(/'/g, '"')
 				setGenerate(data);
-				// console.log(JSON.parse(res.data.content.content));
 			});
 	}
 
