@@ -1,9 +1,4 @@
-import {
-	EditorProvider,
-	useCurrentEditor,
-	EditorContent,
-	useEditor,
-} from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useState, useEffect } from "react";
 
@@ -29,14 +24,14 @@ export const Tiptap = (content?: any) => {
 	});
 
 	useEffect(() => {
-		editor?.commands.setContent(`<div>${JSON.parse(content.content)}</div>`);
+		if (content.content !== undefined) {
+			editor?.commands.setContent(`<div>${JSON.parse(content.content)}</div>`);
+		}
 	}, [editor, content]);
 
-	// if (content) {
-	// 	editor.commands.insertContent("Example Text");
-	// }
 	return (
 		<>
+			{" "}
 			<EditorContent editor={editor} />
 		</>
 	);
