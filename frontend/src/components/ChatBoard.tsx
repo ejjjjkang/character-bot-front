@@ -16,9 +16,17 @@ const ChatBoard = () => {
 	);
 
 	return (
-		<Paper variant="outlined" sx={{ padding: "10px", height: "100%" }}>
+		<Paper
+			variant="outlined"
+			sx={{ padding: "10px", height: "100%", backgroundColor: "#ECECEC" }}
+		>
 			<Stack direction={"column"} height={1} overflow={"hidden"}>
-				<Stack alignSelf={"flex-end"} overflow={"auto"} height={"100%"}>
+				<Stack
+					alignSelf={"flex-end"}
+					overflow={"auto"}
+					height={"100%"}
+					alignItems={"flex-end"}
+				>
 					{messageList.map((message: Message, index: number) => {
 						return <ChatBubble key={index} {...message}></ChatBubble>;
 					})}

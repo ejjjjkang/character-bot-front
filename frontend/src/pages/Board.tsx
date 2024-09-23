@@ -1,40 +1,61 @@
 import React, { useEffect, useState } from "react";
-import {
-	Button,
-	Container,
-	Grid,
-	Paper,
-	Stack,
-	Typography,
-	Tooltip,
-	TextField,
-} from "@mui/material";
-import InfoIcon from "@mui/icons-material/Info";
-import { Tiptap } from "../components/editor";
-import axios from "axios";
-import Textarea from "@mui/joy/Textarea";
-import AppBar from "@mui/material";
-import { port } from "../port.js";
-import Popup from "../components/Popup";
-import SubmitBar from "../components/SubmitBar";
+import { Stack, Button, Menu, MenuItem } from "@mui/material";
 import ChatBoard from "../components/ChatBoard";
-import SubbestionsBoard from "../components/SuggestionsBoard";
+import { AudienceProfPane } from "../components/AudienceProfPane";
 
 const Board = () => {
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const open = Boolean(anchorEl);
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
 	return (
 		<>
 			<Stack
-				p={5}
+				p={2}
 				spacing={40 / 8}
 				overflow={"hidden"}
 				direction="row"
 				width={1}
-				height={"100%"}
+				height={1}
 				minHeight={"100vh"}
 				justifyContent={"center"}
 			>
-				<Stack flexGrow={1} flexDirection={"column"}></Stack>
-				<Stack flexGrow={5} flexDirection={"column"}>
+				<Stack flexGrow={1}>
+					<Button
+						id="basic-button"
+						aria-controls={open ? "basic-menu" : undefined}
+						aria-haspopup="true"
+						aria-expanded={open ? "true" : undefined}
+						onClick={handleClick}
+					>
+						Dashboard
+					</Button>
+					<Menu
+						id="basic-menu"
+						anchorEl={anchorEl}
+						open={open}
+						onClose={handleClose}
+						MenuListProps={{
+							"aria-labelledby": "basic-button",
+						}}
+					>
+						<MenuItem onClick={handleClose}>Profile</MenuItem>
+						<MenuItem onClick={handleClose}>My account</MenuItem>
+						<MenuItem onClick={handleClose}>Logout</MenuItem>
+						<MenuItem onClick={handleClose}>Profile</MenuItem>
+						<MenuItem onClick={handleClose}>My account</MenuItem>
+						<MenuItem onClick={handleClose}>Logout</MenuItem>
+					</Menu>
+				</Stack>
+				<Stack flexGrow={4} flexDirection={"column"} sx={{ width: "10%" }}>
+					<Stack p={3} spacing={40 / 10}>
+						<AudienceProfPane />
+					</Stack>
 					<Stack flexGrow={5}>
 						<ChatBoard></ChatBoard>
 					</Stack>

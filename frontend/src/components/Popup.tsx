@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
 	Button,
-	Container,
-	Grid,
 	Paper,
 	Divider,
 	Stack,
 	Typography,
-	Tooltip,
-	TextField,
 	Slider,
 	FormControl,
 	RadioGroup,
@@ -95,47 +91,50 @@ const Popup = () => {
 					</Stack>
 				</Stack>
 				<Divider></Divider>
-				<Stack p={4} spacing={20 / 2}>
-					<FormControl>
-						<FormLabel id="demo-radio-buttons-group-label">
-							Message length
-						</FormLabel>
-						<RadioGroup
-							aria-labelledby="demo-radio-buttons-group-label"
-							defaultValue="female"
-							name="radio-buttons-group"
-						>
-							<FormControlLabel
-								value="female"
-								control={<Radio />}
-								label="Short"
-							/>
-							<FormControlLabel
-								value="male"
-								control={<Radio />}
-								label="Medium"
-							/>
-							<FormControlLabel
-								value="other"
-								control={<Radio />}
-								label="Long"
-							/>
-						</RadioGroup>
-					</FormControl>
+				<Stack flexDirection={"row"}>
+					<Stack p={4} spacing={20 / 2}>
+						<FormControl>
+							<FormLabel id="demo-radio-buttons-group-label">
+								Message length
+							</FormLabel>
+							<RadioGroup
+								aria-labelledby="demo-radio-buttons-group-label"
+								defaultValue="female"
+								name="radio-buttons-group"
+							>
+								<FormControlLabel
+									value="female"
+									control={<Radio />}
+									label="Short"
+								/>
+								<FormControlLabel
+									value="male"
+									control={<Radio />}
+									label="Medium"
+								/>
+								<FormControlLabel
+									value="other"
+									control={<Radio />}
+									label="Long"
+								/>
+							</RadioGroup>
+						</FormControl>
+					</Stack>
+					<Stack p={4} spacing={20 / 2}>
+						<Typography>topic related</Typography>
+						<Slider
+							defaultValue={50}
+							aria-label="Default"
+							valueLabelDisplay="auto"
+						/>
+					</Stack>
 				</Stack>
-				<Divider></Divider>
-				<Stack p={4} spacing={20 / 5}>
-					<Typography>topic related</Typography>
-					<Slider
-						defaultValue={50}
-						aria-label="Default"
-						valueLabelDisplay="auto"
+				<Stack p={4} spacing={20 / 2}>
+					<FormControlLabel
+						control={<Checkbox defaultChecked />}
+						label="AI-generated label"
 					/>
 				</Stack>
-				<FormControlLabel
-					control={<Checkbox defaultChecked />}
-					label="AI-generated label"
-				/>
 
 				<Button>Generated reply prompt</Button>
 			</Stack>
