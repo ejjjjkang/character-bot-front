@@ -13,50 +13,54 @@ import {
 	Radio,
 	Checkbox,
 } from "@mui/material";
+import HelpIcon from "@mui/icons-material/Help";
 
 const Popup = () => {
 	return (
-		<Paper sx={{ padding: 2 }}>
-			<Stack flexDirection={"column"}>
+		<Paper sx={{ padding: 1 }}>
+			<Stack flexDirection={"column"} sx={{ width: "100%" }}>
 				<Stack>
 					<Typography>AI Message personalization</Typography>
 				</Stack>
 				<Stack flexDirection={"row"}>
-					<Stack p={4} spacing={20 / 2}>
+					<Stack p={3} spacing={20 / 2}>
 						<FormControl>
 							<FormLabel id="demo-radio-buttons-group-label">
-								Message type
+								Message Style
 							</FormLabel>
+
 							<RadioGroup
 								aria-labelledby="demo-radio-buttons-group-label"
-								defaultValue="female"
+								defaultValue="myTone"
 								name="radio-buttons-group"
 							>
+								<Stack flexDirection={"row"}>
+									<FormControlLabel
+										value="expressive"
+										control={<Radio />}
+										label="Expressive / Informal"
+									/>
+									<HelpIcon />
+								</Stack>
 								<FormControlLabel
-									value="female"
-									control={<Radio />}
-									label="Expressive / Informal"
-								/>
-								<FormControlLabel
-									value="male"
+									value="neutral"
 									control={<Radio />}
 									label="Neutral"
 								/>
 								<FormControlLabel
-									value="other"
+									value="formal"
 									control={<Radio />}
 									label="Formal"
 								/>
 								<FormControlLabel
-									value="other"
+									value="myTone"
 									control={<Radio />}
 									label="My usual tones"
 								/>
 							</RadioGroup>
 						</FormControl>
 					</Stack>
-					<Divider></Divider>
-					<Stack p={4} spacing={20 / 2}>
+					<Stack p={3} spacing={20 / 2}>
 						<FormControl>
 							<FormLabel id="demo-radio-buttons-group-label">
 								Emoji Usage
@@ -67,22 +71,18 @@ const Popup = () => {
 								name="radio-buttons-group"
 							>
 								<FormControlLabel
-									value="female"
+									value="none"
 									control={<Radio />}
 									label="None"
 								/>
+								<FormControlLabel value="low" control={<Radio />} label="Low" />
 								<FormControlLabel
-									value="male"
-									control={<Radio />}
-									label="Low"
-								/>
-								<FormControlLabel
-									value="other"
+									value="medium"
 									control={<Radio />}
 									label="Medium"
 								/>
 								<FormControlLabel
-									value="other"
+									value="high"
 									control={<Radio />}
 									label="High"
 								/>
@@ -92,10 +92,10 @@ const Popup = () => {
 				</Stack>
 				<Divider></Divider>
 				<Stack flexDirection={"row"}>
-					<Stack p={4} spacing={20 / 2}>
+					<Stack p={3} spacing={20 / 2}>
 						<FormControl>
 							<FormLabel id="demo-radio-buttons-group-label">
-								Message length
+								Message Length
 							</FormLabel>
 							<RadioGroup
 								aria-labelledby="demo-radio-buttons-group-label"
@@ -120,9 +120,10 @@ const Popup = () => {
 							</RadioGroup>
 						</FormControl>
 					</Stack>
-					<Stack p={4} spacing={20 / 2}>
+					<Stack p={4} spacing={20 / 2} sx={{ width: "100%" }}>
 						<Typography>topic related</Typography>
 						<Slider
+							marks
 							defaultValue={50}
 							aria-label="Default"
 							valueLabelDisplay="auto"
@@ -136,7 +137,15 @@ const Popup = () => {
 					/>
 				</Stack>
 
-				<Button>Generated reply prompt</Button>
+				<Button
+					sx={{
+						backgroundColor: "#745CF1",
+						color: "white",
+						borderRadius: "40px",
+					}}
+				>
+					Generated reply prompts
+				</Button>
 			</Stack>
 		</Paper>
 	);

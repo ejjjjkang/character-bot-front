@@ -25,32 +25,41 @@ const Board = () => {
 				minHeight={"100vh"}
 				justifyContent={"center"}
 			>
-				<Stack flexGrow={1}>
-					<Button
-						id="basic-button"
-						aria-controls={open ? "basic-menu" : undefined}
-						aria-haspopup="true"
-						aria-expanded={open ? "true" : undefined}
-						onClick={handleClick}
-					>
-						Dashboard
-					</Button>
-					<Menu
-						id="basic-menu"
-						anchorEl={anchorEl}
-						open={open}
-						onClose={handleClose}
-						MenuListProps={{
-							"aria-labelledby": "basic-button",
-						}}
-					>
-						<MenuItem onClick={handleClose}>Profile</MenuItem>
-						<MenuItem onClick={handleClose}>My account</MenuItem>
-						<MenuItem onClick={handleClose}>Logout</MenuItem>
-						<MenuItem onClick={handleClose}>Profile</MenuItem>
-						<MenuItem onClick={handleClose}>My account</MenuItem>
-						<MenuItem onClick={handleClose}>Logout</MenuItem>
-					</Menu>
+				<Stack
+					flexGrow={1}
+					flexDirection={"column"}
+					justifyContent={"space-between"}
+				>
+					<Stack>
+						<Button
+							id="basic-button"
+							aria-controls={open ? "basic-menu" : undefined}
+							aria-haspopup="true"
+							aria-expanded={open ? "true" : undefined}
+							onClick={handleClick}
+						>
+							Dashboard
+						</Button>
+						<Menu
+							id="basic-menu"
+							anchorEl={anchorEl}
+							open={open}
+							onClose={handleClose}
+							MenuListProps={{
+								"aria-labelledby": "basic-button",
+							}}
+						>
+							<MenuItem onClick={handleClose}>Profile</MenuItem>
+							<MenuItem onClick={handleClose}>My account</MenuItem>
+							<MenuItem onClick={handleClose}>Logout</MenuItem>
+							<MenuItem onClick={handleClose}>Profile</MenuItem>
+							<MenuItem onClick={handleClose}>My account</MenuItem>
+							<MenuItem onClick={handleClose}>Logout</MenuItem>
+						</Menu>
+					</Stack>
+					<Stack>
+						<Button>Submit</Button>
+					</Stack>
 				</Stack>
 				<Stack flexGrow={4} flexDirection={"column"} sx={{ width: "10%" }}>
 					<Stack p={3} spacing={40 / 10}>
@@ -59,9 +68,6 @@ const Board = () => {
 					<Stack flexGrow={5}>
 						<ChatBoard></ChatBoard>
 					</Stack>
-					{/* <Stack>
-						<Button>Submit</Button>
-					</Stack> */}
 				</Stack>
 				<Stack flexGrow={1} flexDirection={"column"}></Stack>
 

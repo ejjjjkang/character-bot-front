@@ -17,9 +17,9 @@ import Popup from "./Popup";
 import axios from "axios";
 import { port } from "../port.js";
 
-const SubmitBar = () => {
+const SubmitBar: React.FC = () => {
 	const [suggest, setSuggest] = useState(false);
-	const [input, setInput] = useState("");
+	const [input, setInput] = useState<string>("");
 	const dispatch = useDispatch();
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
@@ -55,7 +55,7 @@ const SubmitBar = () => {
 				dispatch(
 					addSuggestedMessage([
 						{
-							type: "1",
+							type: "audience-focused",
 							content:
 								"Hi Emily! Thanks for sticking around for two years! \
 								Starting TikTok content was about expanding my reach and experimenting \
@@ -64,7 +64,7 @@ const SubmitBar = () => {
 							clicked: false,
 						},
 						{
-							type: "2",
+							type: "creator-focused",
 							content:
 								"Hey Emily! 😊🎀 Jumping onto TikTok was a no-brainer for me! It’s such a fun platform for quick, creative content \
 							and really lets me express different sides of beauty and makeup trends. \
@@ -72,7 +72,7 @@ const SubmitBar = () => {
 							clicked: false,
 						},
 						{
-							type: "3",
+							type: "message-focused",
 							content:
 								"Hey Emily! Oh, diving into TikTok was all about connecting with more amazing folks like you and sharing bite-sized fun!\
 								 It felt like the perfect place to bring some extra sparkle 🌟 and creativity.\
@@ -92,7 +92,7 @@ const SubmitBar = () => {
 
 	return (
 		<Stack direction={"column"}>
-			{suggest ? <SuggestionsBoard setInput={setInput} /> : null}
+			{suggest ? <SuggestionsBoard input={input} setInput={setInput} /> : null}
 			<Stack direction={"row"}>
 				<Paper
 					sx={{ flexGrow: 5, height: "auto", padding: "10px" }}
@@ -103,34 +103,38 @@ const SubmitBar = () => {
 					}}
 				>
 					<FormControl sx={{ width: "100%" }}>
-						<Stack overflow={"hidden"} direction={"row"} spacing={2}>
-							<MentionsInput
-								style={{ width: "100%", flexGrow: 4, margin: "10px" }}
-								singleLine={true}
-								placeholder="Type a message"
-								name="userTextField"
-								onChange={handleChange}
-								value={input}
-							>
-								<Mention
-									trigger="/"
-									data={() => {
-										// Ensure suggest is set to true if not already
-										if (!suggest) {
-											setSuggest(true);
-										}
-										// Return the actual data for the Mention component
-										return [];
-									}}
-								></Mention>
-							</MentionsInput>
-							<Button
-								type="submit"
-								color="primary"
-								onClick={(e: FormEvent) => {}}
-							>
-								Submit
-							</Button>
+						<Stack direction={"row"} alignItems={"center"}>
+							<Stack sx={{ flexGrow: 4 }}>
+								<MentionsInput
+									singleLine={false}
+									placeholder="Type a message"
+									name="userTextField"
+									onChange={handleChange}
+									value={input}
+									style={{ overflowY: "auto" }}
+								>
+									<Mention
+										trigger="/"
+										data={() => {
+											// Ensure suggest is set to true if not already
+											if (!suggest) {
+												setSuggest(true);
+											}
+											// Return the actual data for the Mention component
+											return [];
+										}}
+									></Mention>
+								</MentionsInput>
+							</Stack>
+							<Stack>
+								<Button
+									type="submit"
+									color="primary"
+									onClick={(e: FormEvent) => {}}
+								>
+									Submit
+								</Button>
+							</Stack>
 						</Stack>
 					</FormControl>
 				</Paper>

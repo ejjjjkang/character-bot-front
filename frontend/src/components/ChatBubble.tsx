@@ -9,6 +9,7 @@ const Bubble = styled.div`
 	word-wrap: break-word;
 	margin: 0.5em;
 	width: fit-content;
+	max-width: 500px;
 `;
 
 const ChatBubble = ({ message, name }: { message: string; name: string }) => {

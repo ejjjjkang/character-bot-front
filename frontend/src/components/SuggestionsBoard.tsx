@@ -1,24 +1,34 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import React, {
+	useState,
+	useEffect,
+	ChangeEvent,
+	FormEvent,
+	ComponentProps,
+} from "react";
 import { Paper, Stack, Typography, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { editSuggestedMessage } from "../redux/chatList";
+import Chip from "@mui/material/Chip";
 
-export const SuggestionsBoard = () => {
-	const dispatch = useDispatch();
+interface ChildComponentProps {
+	setInput: React.Dispatch<React.SetStateAction<string>>;
+	input: string;
+}
+
+export const SuggestionsBoard: React.FC<ChildComponentProps> = ({
+	setInput,
+	input,
+}) => {
 	const suggestedMsgList = useSelector(
 		(state: RootState) => state.chatList.suggestedMessages
 	);
+
 	const handleClick = (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault();
 		const target = e.target as HTMLButtonElement;
-		dispatch(
-			editSuggestedMessage({
-				type: "hi",
-				clicked: true,
-				content: target.textContent,
-			})
-		);
+
+		setInput(input + target.textContent);
 	};
 
 	return (
@@ -37,6 +47,10 @@ export const SuggestionsBoard = () => {
 											{suggestedMsg.content}
 										</Typography>
 									</Button>
+									<Chip
+										sx={{ width: "fit-content", alignSelf: "flex-end" }}
+										label={suggestedMsg.type}
+									/>
 								</Stack>
 							);
 						} else {
